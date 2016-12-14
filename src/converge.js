@@ -22,10 +22,15 @@ var reduce = require('./reduce');
  *        `fn1` and `fn2` as its arguments.
  * @param {Array} functions A list of functions.
  * @return {Function} A new function.
+ * @see R.useWith
  * @example
  *
  *      var average = R.converge(R.divide, [R.sum, R.length])
  *      average([1, 2, 3, 4, 5, 6, 7]) //=> 4
+ *
+ *      var strangeConcat = R.converge(R.concat, [R.toUpper, R.toLower])
+ *      strangeConcat("Yodel") //=> "YODELyodel"
+ *
  * @symb R.converge(f, [g, h])(a, b) = f(g(a, b), h(a, b))
  */
 module.exports = _curry2(function converge(after, fns) {

@@ -1,5 +1,4 @@
 var _curry2 = require('./internal/_curry2');
-var _slice = require('./internal/_slice');
 var curryN = require('./curryN');
 
 
@@ -23,6 +22,7 @@ var curryN = require('./curryN');
  * @param {Function} fn The function to wrap.
  * @param {Array} transformers A list of transformer functions
  * @return {Function} The wrapped function.
+ * @see R.converge
  * @example
  *
  *      R.useWith(Math.pow, [R.identity, R.identity])(3, 4); //=> 81
@@ -39,6 +39,6 @@ module.exports = _curry2(function useWith(fn, transformers) {
       args.push(transformers[idx].call(this, arguments[idx]));
       idx += 1;
     }
-    return fn.apply(this, args.concat(_slice(arguments, transformers.length)));
+    return fn.apply(this, args.concat(Array.prototype.slice.call(arguments, transformers.length)));
   });
 });
